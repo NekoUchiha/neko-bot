@@ -1,0 +1,3 @@
+exports.TOKEN = 'Mzk0NDc2MTI3NzY4NDEyMTYw.DSE4RQ.w66ZOVi7wvtcW3X5J4R44aYGnVU';
+
+exports.PREFIX = 'neko ';
