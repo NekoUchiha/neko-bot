@@ -2,7 +2,6 @@
   "name": "neko",
   "version": "0.1.0",
   "description": "A simple discord bot",
-  "main": "Bot.js",
   "scripts": {
  "start": "node bot.js"
   },
