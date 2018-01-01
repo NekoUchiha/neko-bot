@@ -1,4 +1,5 @@
 worker:node bot.js
+web: bundle exec thin start -p $PORT
 
 var express = require('express');
 var app     = express();
