@@ -8,16 +8,6 @@ const youtube = new YouTube(process.env.GOOGLE_API_KEY);
 
 const queue = new Map();
 
-const express = require('express'), app = express();
-
-app.use(express.static(__dirname + '/public'));
-
-app.use('/', (req,res){
-  res.sendFile(__dirname + '/index.html');
-}
-
-app.listen(process.env.PORT || 8080);
-
 client.on('warn', console.warn);
 
 client.on('error', console.error);
