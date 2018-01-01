@@ -114,7 +114,7 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 		if (serverQueue && serverQueue.playing) {
 			serverQueue.playing = false;
 			serverQueue.connection.dispatcher.pause();
-			return msg.channel.send('â¸ Paused the music for you!');
+			return msg.channel.send(':pause_button: ¸ Paused the music for you!');
 		}
 		return msg.channel.send('There is nothing playing.');
 	} else if (msg.content.startsWith('neko resume')) {
