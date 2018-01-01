@@ -192,7 +192,7 @@ function play(guild, song) {
 		.on('error', error => console.error(error));
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
 
-	serverQueue.textChannel.send(`ðŸŽ¶ Nya. Starto playito: **${song.title}**`);
+	serverQueue.textChannel.send(` :notes: Nya. Starto playito: **${song.title}**`);
 }
 
 client.login(process.env.TOKEN);
