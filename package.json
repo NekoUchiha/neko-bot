@@ -18,6 +18,7 @@
     "request": "2.81.0",
     "install": "^0.10.2",
     "node-opus": "^0.2.7",
+   "ffmpeg-binaries": "^3.2.2-3",
     "opusscript": "0.0.3",
     "simple-youtube-api": "^3.0.1",
     "ytdl-core": "^0.16.2"
