@@ -22,7 +22,7 @@ client.on('message', async msg => { // eslint-disable-line
 	if (msg.author.bot) return undefined;
 	if (!msg.content.startsWith(process.env.PREFIX)) return undefined;
 
-	const args = msg.content.split(' ');
+		const args = msg.content.split(' ');
 	const searchString = args.slice(1).join(' ');
 	const url = args[1] ? args[1].replace(/<(.+)>/g, '$1') : '';
 	const serverQueue = queue.get(msg.guild.id);
@@ -45,7 +45,7 @@ client.on('message', async msg => { // eslint-disable-line
 				const video2 = await youtube.getVideoByID(video.id); // eslint-disable-line no-await-in-loop
 				await handleVideo(video2, msg, voiceChannel, true); // eslint-disable-line no-await-in-loop
 			}
-			return msg.channel.send(`âœ… Playlist: **${playlist.title}** Nya. addedo to the queue!`);
+			return msg.channel.send(`:white_check_mark:  Playlist: **${playlist.title}** Nya. addedo to the queue!`);
 		} else {
 			try {
 				var video = await youtube.getVideo(url);
@@ -53,13 +53,24 @@ client.on('message', async msg => { // eslint-disable-line
 				try {
 					var videos = await youtube.searchVideos(searchString, 10);
 					let index = 0;
-					msg.channel.send(`
-**Song selection:**
-
-${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}
-
-Please provide a value to select one of the search results ranging from 1-10.
-					`);
+					var connection = await voiceChannel.join();
+					msg.channel.send(`:white_check_mark: connecto wa channale **${voiceChannel.name}**`);
+					msg.channel.send({embed: {
+						color: 0x66eb00,
+						fields: [{
+							name: `Song selection:`,
+							value: `${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}
+							`
+						  },
+						],
+						Thumbnail: {
+							
+					},
+						footer: {
+							text: "Irande kudasi no valuemo wa selecto ichi ni kensaku resultso 1-10"
+						}					
+					  }
+					});
 					// eslint-disable-next-line max-depth
 					try {
 						var response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11, {
@@ -69,13 +80,13 @@ Please provide a value to select one of the search results ranging from 1-10.
 						});
 					} catch (err) {
 						console.error(err);
-						return msg.channel.send('No or invalid value entered, cancelling video selection.');
+						return msg.channel.send('Ii o no corecto valumo enterado, cancello video selecto. Nya');
 					}
 					const videoIndex = parseInt(response.first().content);
 					var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
 				} catch (err) {
 					console.error(err);
-					return msg.channel.send('ðŸ†˜ I could not obtain any search results.');
+					return msg.channel.send(':sos: Watashi wa ii no correcto scripto, Onegai Admino sendo mailo.');
 				}
 			}
 			return handleVideo(video, msg, voiceChannel);
@@ -100,7 +111,7 @@ Please provide a value to select one of the search results ranging from 1-10.
 		return msg.channel.send(`I set the volume to: **${args[1]}**`);
 	} else if (msg.content.startsWith('neko np')) {
 		if (!serverQueue) return msg.channel.send('There is nothing playing.');
-		return msg.channel.send(`ðŸŽ¶ Now playing: **${serverQueue.songs[0].title}**`);
+		return msg.channel.send(`:notes: Now playing: **${serverQueue.songs[0].title}**`);
 	} else if (msg.content.startsWith('neko queue')) {
 		if (!serverQueue) return msg.channel.send('There is nothing playing.');
 		return msg.channel.send(`
@@ -114,23 +125,221 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 		if (serverQueue && serverQueue.playing) {
 			serverQueue.playing = false;
 			serverQueue.connection.dispatcher.pause();
-			return msg.channel.send(':pause_button: ¸ Paused the music for you!');
+			return msg.channel.send(':pause_button: Nya. Musico Pausedo desu!');
 		}
 		return msg.channel.send('There is nothing playing.');
 	} else if (msg.content.startsWith('neko resume')) {
 		if (serverQueue && !serverQueue.playing) {
 			serverQueue.playing = true;
 			serverQueue.connection.dispatcher.resume();
-			return msg.channel.send(':play_pause:  Resumed the music for you!');
+		return msg.channel.send(':play_pause: Nya. Musico Resumedo!');
 		}
 		return msg.channel.send('There is nothing playing.');
 	} else if (msg.content.startsWith('neko ping')) {
-		msg.channel.send(`\`${Date.now() - message.createdTimestamp} ms\``);
-	  } else if (msg.content.startsWith('neko test')) {
+		msg.channel.send(msg.channel.pingTime);
 		msg.channel.send('Nya. Watashi wa neko desu! :cat: ');
+	  }else if (msg.content.startsWith('neko help')) {
+		msg.channel.send("Nya. Watashi wa anata o tasukerudeshou!");
+		msg.channel.send({embed: {
+			color: 3447003,
+			author: {
+			  name: client.user.username,
+			  icon_url: client.user.avatarURL
+			},
+			title: "neko help info",
+			description: "-----------------------------------------------",
+			fields: [{
+				name: "neko -h neko",
+				value: "commando spisco wa neko originalo lenygyage des."
+			  },
+			  {
+				name: "neko -h ru",
+				value: "список комманд на русском языке."
+			  },
+			  {
+				name: "neko -h eng",
+				value: "list of commands in English!"
+			  }
+			],
+			timestamp: new Date(),
+			footer: {
+			  icon_url: client.user.avatarURL,
+			  text: "© neko"
+			}
+		  }
+		});
+	} else if (msg.content.startsWith('neko -h ru')) {
+		msg.channel.send({embed: {
+			color: 0xe20808,
+			author: {
+			  name: client.user.username,
+			  icon_url: client.user.avatarURL
+			},
+			title: "neko -h ru info",
+			description: "Список комманд на русском языке",
+			fields: [{
+				name: "help",
+				value: "основная информационая комманда."
+			  },
+			  {
+				name: "-h neko",
+				value: "описание всех команд, на уникальном неко языке."
+			  },
+			  {
+				name: "-h ru",
+				value: "описание всех команд, на русском языке."
+			  },
+			  {
+				name: "-h eng",
+				value: "описание всех команд, на английском языке."
+			  },
+			  {
+				name: "play",
+				value: "список доступних композиций **play < название композиции >** выдаёт список с композициями на выбор одной из десяти."
+			  },
+			  {
+				name: "skip",
+				value: "пропускает композицию."
+			  },
+			  {
+				name: "stop",
+				value: "останавливает композицию и выгоняет бота."
+			  },
+			  {
+				name: "volume<значение>",
+				value: "изменяет громкость воспроизвидения бота значением от 1 до 5."
+			  },
+			  {
+				name: "pause",
+				value: "ставит композицию на паузу."
+			  },
+			  {
+				name: "resume",
+				value: "продлжает воспроизводить поставленную на паузу композицию."
+			  }
+			],
+			timestamp: new Date(),
+			footer: {
+			  icon_url: client.user.avatarURL,
+			  text: "© neko"
+			}
+		  }
+		});
+	  } else if (msg.content.startsWith('neko -h eng')) {
+			msg.channel.send({embed: {
+				color: 0xe20808,
+				author: {
+					name: client.user.username,
+					icon_url: client.user.avatarURL
+				},
+				title: "neko -h eng info",
+				description: "List of commands in English",
+				fields: [{
+					name: "help",
+					value: "basic information command."
+					},
+					{
+					name: "-h neko",
+					value: "description of all commands, in a unique language."
+					},
+					{
+					name: "-h ru",
+					value: "description of all commands, in Russian."
+					},
+					{
+					name: "-h eng",
+					value: "description of all commands, in English."
+					},
+					{
+					name: "play",
+					value: "list of available songs ** play <song name> ** gives a list with songs to choose from one of ten."
+					},
+					{
+					name: "skip",
+					value: "skips composition."
+					},
+					{
+					name: "stop",
+					value: "stops the song and expels the bot."
+					},
+					{
+					name: "volume<значение>",
+					value: "changes the volume of bot playback from 1 to 5."
+					},
+					{
+					name: "pause",
+					value: "pauses the song."
+					},
+					{
+					name: "resume",
+					value: "continues to play the paused song."
+					}
+				],
+				timestamp: new Date(),
+				footer: {
+					icon_url: client.user.avatarURL,
+					text: "© neko"
+				}
+				}
+			});
+	  } else if (msg.content.startsWith('neko -h neko')) {
+			msg.channel.send({embed: {
+				color: 0xe20808,
+				author: {
+					name: client.user.username,
+					icon_url: client.user.avatarURL
+				},
+				title: "neko -h neko info",
+				description: "Listo no commando wa specialo originalo lenygyage des",
+				fields: [{
+					name: "help",
+					value: "Basico listo no informato commando"
+					},
+					{
+					name: "-h neko",
+					value: "Listo no commando wa specialo originalo lenygyage des"
+					},
+					{
+					name: "-h ru",
+					value: "Listo no commando wa Russa lenygyage des"
+					},
+					{
+					name: "-h eng",
+					value: "Listo no commando wa Engliaso lenygyage des"
+					},
+					{
+					name: "play",
+					value: "Basico listo no songo ** play <song name> ** Watashi wa searche Anata no listо onegai selecto songo 1 - 10"
+					},
+					{
+					name: "skip",
+					value: "skipo songo des"
+					},
+					{
+					name: "stop",
+					value: "stopo songo ana boto Exito :("
+					},
+					{
+					name: "volume<значение>",
+					value: "changesu volumo poino boto playbacku  1 - 5"
+					},
+					{
+					name: "pause",
+					value: "pause songo"
+					},
+					{
+					name: "resume",
+					value: "nowo starto play inato pause songo"
+					}
+				],
+				timestamp: new Date(),
+				footer: {
+					icon_url: client.user.avatarURL,
+					text: "© neko"
+				}
+				}
+			});
 	  }
-
-	  return undefined;
 });
 
 async function handleVideo(video, msg, voiceChannel, playlist = false) {
@@ -167,7 +376,7 @@ async function handleVideo(video, msg, voiceChannel, playlist = false) {
 		serverQueue.songs.push(song);
 		console.log(serverQueue.songs);
 		if (playlist) return undefined;
-		else return msg.channel.send(`âœ… **${song.title}** has been added to the queue!`);
+		else return msg.channel.send(`:white_check_mark: **${song.title}** has been added to the queue!`);
 	}
 	return undefined;
 }
