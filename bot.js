@@ -347,7 +347,7 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 	  }  else if (msg.content.startsWith('неко анонс')) {
 			msg.channel.send('начинаю проверку вашеших привелегий ');
 			msg.delete();
-			const AdminRole = msg.guild.roles.find("name", "Admin");
+			const AdminRole = msg.guild.roles.find("name", "Anonser");
 			if (!msg.member.roles.has(AdminRole.id))
     return msg.channel.send("У вас нет Доступа до этой Команды.");			
 				msg.channel.send('Заявка принята ожидайте Анонс ');
