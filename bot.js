@@ -12,7 +12,13 @@ client.on('warn', console.warn);
 
 client.on('error', console.error);
 
-client.on('ready', () => console.log(`Logged in as ${client.user.username}!`));
+client.on('ready', () => {
+client.channels.find("name", "log").send(`**log**: function **ready** - Logged in as **${client.user.username}**!`)
+client.user.setGame("neko help")
+client.channels.find("name", "log").send(`**log**: function **ready** - Bot Game Set **neko help**`)
+client.channels.find("name", "log").send(`-------------------------------------------------------------------`)
+console.log(`Logged in as ${client.user.username}!`)
+console.log(`Bot Game Set neko help`)});
 
 client.on('disconnect', () => console.log('I just disconnected, making sure you know, I will reconnect now...'));
 
@@ -20,7 +26,6 @@ client.on('reconnecting', () => console.log('I am reconnecting now!'));
 
 client.on('message', async msg => { // eslint-disable-line
 	if (msg.author.bot) return undefined;
-	if (!msg.content.startsWith(process.env.PREFIX)) return undefined;
 
 		const args = msg.content.split(' ');
 	const searchString = args.slice(1).join(' ');
@@ -339,7 +344,17 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 				}
 				}
 			});
-	  }
+	  }  else if (msg.content.startsWith('неко анонс')) {
+			msg.channel.send('начинаю проверку вашеших привелегий ');
+			msg.delete();
+			const AdminRole = msg.guild.roles.find("name", "Admin");
+			if (!msg.member.roles.has(AdminRole.id))
+    return msg.channel.send("У вас нет Доступа до этой Команды.");			
+				msg.channel.send('Заявка принята ожидайте Анонс ');
+				client.channels.find("name", "annonsi").send( '@everyone' + " Рейд " + args[2] + " Будет в " + args[3] + " в " + args[4] + " всем быть!!! " );
+		}  else if (msg.content.startsWith('neko invite')) {
+			msg.channel.send("Onegai inuvaite" + " " + "https://discordapp.com/oauth2/authorize?client_id=394476127768412160&scope=bot&permissions=2146958591");
+		}
 });
 
 async function handleVideo(video, msg, voiceChannel, playlist = false) {
