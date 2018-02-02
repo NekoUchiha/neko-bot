@@ -351,7 +351,7 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 			if (!msg.member.roles.has(AdminRole.id))
     return msg.channel.send("У вас нет Доступа до этой Команды.");			
 				msg.channel.send('Заявка принята ожидайте Анонс ');
-				client.channels.find("name", "annonsi").send( '@everyone' + " Рейд " + args[2] + " Будет в " + args[3] + " в " + args[4] + " всем быть!!! " );
+				msg.guild.channels.find("name", "annonsi").send( '@everyone' + " Рейд " + args[2] + " Будет в " + args[3] + " в " + args[4] + " всем быть!!! " );
 		}  else if (msg.content.startsWith('neko invite')) {
 			msg.channel.send("Onegai inuvaite" + " " + "https://discordapp.com/oauth2/authorize?client_id=394476127768412160&scope=bot&permissions=2146958591");
 		}
