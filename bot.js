@@ -8,21 +8,37 @@ const youtube = new YouTube(process.env.GOOGLE_API_KEY);
 
 const queue = new Map();
 
-client.on('warn', console.warn);
+client.on('warn', () => {
+	console.warn
+	client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: **warn** - ${warn}`)
+	client.channels.find("id", process.env.LOG_CHANNALE).send(`-------------------------------------------------------------------`)});
 
-client.on('error', console.error);
+client.on('error', () => {
+	 console.error
+	 client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: **error** - ${error}`)
+	 client.channels.find("id", process.env.LOG_CHANNALE).send(`-------------------------------------------------------------------`)});
 
 client.on('ready', () => {
-client.channels.find("name", "log").send(`**log**: function **ready** - Logged in as **${client.user.username}**!`)
+client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **ready** - Logged in as **${client.user.username}**!`)
 client.user.setGame("neko help")
-client.channels.find("name", "log").send(`**log**: function **ready** - Bot Game Set **neko help**`)
-client.channels.find("name", "log").send(`-------------------------------------------------------------------`)
+client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **ready** - Bot Game Set **neko help**`)
+client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **ready** - Bot Autor = **Neko**
+Bot Version = 0.9.0 `)	
+client.channels.find("id", process.env.LOG_CHANNALE).send(`-------------------------------------------------------------------`)
 console.log(`Logged in as ${client.user.username}!`)
-console.log(`Bot Game Set neko help`)});
+console.log(`Bot Game Set neko help`)
+console.log(`Bot Autor = **Neko**
+ Bot Version = 0.9.0 `)});
 
-client.on('disconnect', () => console.log('I just disconnected, making sure you know, I will reconnect now...'));
+client.on('disconnect', () => {
+	console.log('I just disconnected, making sure you know, I will reconnect now...')
+	client.channels.find("id", process.env.LOG_CHANNALE)).send(`**log**: function **disconnect** - I just disconnected, making sure you know, I will reconnect now...`)
+	client.channels.find("id", process.env.LOG_CHANNALE)).send(`-------------------------------------------------------------------`)});
 
-client.on('reconnecting', () => console.log('I am reconnecting now!'));
+client.on('reconnecting', () => {
+	console.log('I am reconnecting now!')
+	client.channels.find("id", process.env.LOG_CHANNALE)).send(`**log**: function **reconnecting** - I am reconnecting now!`)
+	client.channels.find("id", process.env.LOG_CHANNALE)).send(`-------------------------------------------------------------------`)});
 
 client.on('message', async msg => { // eslint-disable-line
 	if (msg.author.bot) return undefined;
@@ -345,15 +361,96 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 				}
 			});
 	  }  else if (msg.content.startsWith('неко анонс')) {
-			msg.channel.send('начинаю проверку вашеших привелегий ');
+			const embed = {
+				"description": "------------------------------------------------",
+				"color": 15924992,
+				"timestamp": new Date(),
+				"footer": {
+					"icon_url": client.user.avatarURL,
+					"text": "© neko"
+				},
+				"thumbnail": {
+					"url": "https://raw.githubusercontent.com/NekoUchiha/neko-bot/master/img/sync.png"
+				},
+				"fields": [
+					{
+						"name": "начинаю проверку ваших привелегий",
+						"value": "------------------------------------------------"
+					},
+				],
+			};
+			msg.channel.send({embed});
 			msg.delete();
 			const AdminRole = msg.guild.roles.find("name", "Anonser");
 			if (!msg.member.roles.has(AdminRole.id))
-    return msg.channel.send("У вас нет Доступа до этой Команды.");			
-				msg.channel.send('Заявка принята ожидайте Анонс ');
-				msg.guild.channels.find("name", "annonsi").send( '@everyone' + " Рейд " + args[2] + " Будет в " + args[3] + " в " + args[4] + " всем быть!!! " );
+		return msg.channel.send({embed: {
+			"description": "------------------------------------------------",
+			"color": 15337994,
+			"timestamp": new Date(),
+			"footer": {
+				"icon_url": client.user.avatarURL,
+				"text": "© neko"
+			},
+			"thumbnail": {
+				"url": "https://raw.githubusercontent.com/NekoUchiha/neko-bot/master/img/dont.png"
+			},
+			"fields": [
+				{
+					"name": "У вас нет Доступа до этой Команды.",
+					"value": "------------------------------------------------"
+				},
+			],
+	}
+	});		
+				msg.channel.send({embed: {
+						"description": "------------------------------------------------",
+						"color": 1693449,
+						"timestamp": new Date(),
+						"footer": {
+							"icon_url": client.user.avatarURL,
+							"text": "© neko"
+						},
+						"thumbnail": {
+							"url": "https://raw.githubusercontent.com/NekoUchiha/neko-bot/master/img/apply.png"
+						},
+						"fields": [
+							{
+								"name": "Заявка принята ожидайте Анонс",
+								"value": "------------------------------------------------"
+							},
+						],
+				}
+				});
+				if (args[4] = undefined) return msg,channel.send('неверный синтаксис');
+				else msg.guild.channels.find("name", "annonsi").send( '@everyone' + " Рейд " + args[2] + " Будет в " + args[3] + " в " + args[4] + " всем быть!!! " );
 		}  else if (msg.content.startsWith('neko invite')) {
-			msg.channel.send("Onegai inuvaite" + " " + "https://discordapp.com/oauth2/authorize?client_id=394476127768412160&scope=bot&permissions=2146958591");
+
+			msg.channel.send({"embed": {
+				"title": "Neko Bot Invite",
+				"description": "Onegai inuvaite [Neko](https://discordapp.com/oauth2/authorize?client_id=394476127768412160&scope=bot&permissions=2146958591) io sono playo domo Arigato",
+				"url": "https://discordapp.com/oauth2/authorize?client_id=394476127768412160&scope=bot&permissions=2146958591",
+				"color": 16713430,
+				"timestamp": new Date(),
+				"footer": {
+					"icon_url": client.user.avatarURL,
+					"text": "© neko"
+				},
+				"thumbnail": {
+					"url": client.user.avatarURL
+				},
+				"fields": [
+					{
+						"name": "Invite Link",
+						"value": "https://discordapp.com/oauth2/authorize?client_id=394476127768412160&scope=bot&permissions=2146958591"
+					}
+				],
+				"author": {
+					"name": client.user.username,
+					"url": "https://discordapp.com/oauth2/authorize?client_id=394476127768412160&scope=bot&permissions=2146958591",
+					"icon_url": client.user.avatarURL
+				}
+			}
+		});
 		}
 });
 
