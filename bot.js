@@ -51,7 +51,7 @@ client.on('reconnecting', () => {
 client.on('message', async msg => { // eslint-disable-line
 	if (msg.author.bot) return undefined;
 
-		const args = msg.content.split(' ');
+	const args = msg.content.split(' ');
 	const searchString = args.slice(1).join(' ');
 	const url = args[1] ? args[1].replace(/<(.+)>/g, '$1') : '';
 	const serverQueue = queue.get(msg.guild.id);
@@ -82,7 +82,7 @@ client.on('message', async msg => { // eslint-disable-line
 				try {
 					var videos = await youtube.searchVideos(searchString, 10);
 					let index = 0;
-					var connection = await voiceChannel.join();
+					voiceChannel.join();
 					msg.channel.send(`:white_check_mark: connecto wa channale **${voiceChannel.name}**`);
 					msg.channel.send({embed: {
 						color: 0x66eb00,
@@ -167,7 +167,7 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 	} else if (msg.content.startsWith('neko ping')) {
 		msg.channel.send(msg.channel.pingTime);
 		msg.channel.send('Nya. Watashi wa neko desu! :cat: ');
-	}else if (msg.content.startsWith('neko help')) {
+	  }else if (msg.content.startsWith('neko help')) {
 		msg.channel.send("Nya. Watashi wa anata o tasukerudeshou!");
 		msg.channel.send({embed: {
 			color: 3447003,
