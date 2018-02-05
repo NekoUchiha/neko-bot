@@ -35,7 +35,7 @@ On ${client.guilds.size} servers!
 ${client.channels.size} channels and ${client.users.size} users cached!
 Bot Game Set neko help
 Bot Autor = Neko
- Bot Version = 0.9.2 `)
+ Bot Version = 0.9.2 `)});
 
 
 client.on('disconnect', () => {
@@ -586,7 +586,7 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 		url: neko.neko
 	}
 }
-})
+});
 }
 });
 	
