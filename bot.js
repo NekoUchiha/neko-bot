@@ -1,6 +1,7 @@
 const { Client, Util } = require('discord.js');
 const YouTube = require('simple-youtube-api');
 const ytdl = require('ytdl-core');
+const neko = require("neko.js");
 
 const client = new Client({ disableEveryone: false });
 
@@ -8,37 +9,44 @@ const youtube = new YouTube(process.env.GOOGLE_API_KEY);
 
 const queue = new Map();
 
+let nekoclient = new neko.Client();
+
 client.on('warn', () => {
 	console.warn
-	client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: **warn** - ${warn}`)
-	client.channels.find("id", process.env.LOG_CHANNALE).send(`-------------------------------------------------------------------`)});
+	client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: **warn** - ${warn}
+-------------------------------------------------------------------`)});
 
 client.on('error', () => {
 	 console.error
-	 client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: **error** - ${error}`)
-	 client.channels.find("id", process.env.LOG_CHANNALE).send(`-------------------------------------------------------------------`)});
+	 client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: **error** - ${error}
+-------------------------------------------------------------------`)});
 
 client.on('ready', () => {
-client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **ready** - Logged in as **${client.user.username}**!`)
+client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **ready** - Logged in as **${client.user.username}  [ID ${client.user.id}]**!
+**log**: function **ready** - On **${client.guilds.size} servers**!
+**${client.channels.size}** channels and **${client.users.size}** users cached!
+**log**: function **ready** - Bot Game Set **neko help**
+**log**: function **ready** - Bot Autor = **Neko**
+Bot Version = 0.9.2
+-------------------------------------------------------------------`)
 client.user.setGame("neko help")
-client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **ready** - Bot Game Set **neko help**`)
-client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **ready** - Bot Autor = **Neko**
-Bot Version = 0.9.0 `)	
-client.channels.find("id", process.env.LOG_CHANNALE).send(`-------------------------------------------------------------------`)
-console.log(`Logged in as ${client.user.username}!`)
-console.log(`Bot Game Set neko help`)
-console.log(`Bot Autor = **Neko**
- Bot Version = 0.9.0 `)});
+console.log(`Logged in as ${client.user.username} [ID ${client.user.id}]!
+On ${client.guilds.size} servers!
+${client.channels.size} channels and ${client.users.size} users cached!
+Bot Game Set neko help
+Bot Autor = Neko
+ Bot Version = 0.9.2 `)
+
 
 client.on('disconnect', () => {
 	console.log('I just disconnected, making sure you know, I will reconnect now...')
-	client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **disconnect** - I just disconnected, making sure you know, I will reconnect now...`)
-	client.channels.find("id", process.env.LOG_CHANNALE).send(`-------------------------------------------------------------------`)});
+	client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **disconnect** - I just disconnected, making sure you know, I will reconnect now...
+-------------------------------------------------------------------`)});
 
 client.on('reconnecting', () => {
 	console.log('I am reconnecting now!')
-	client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **reconnecting** - I am reconnecting now!`)
-	client.channels.find("id", process.env.LOG_CHANNALE).send(`-------------------------------------------------------------------`)});
+	client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **reconnecting** - I am reconnecting now!
+-------------------------------------------------------------------`)});
 
 client.on('message', async msg => { // eslint-disable-line
 	if (msg.author.bot) return undefined;
@@ -159,7 +167,7 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 	} else if (msg.content.startsWith('neko ping')) {
 		msg.channel.send(msg.channel.pingTime);
 		msg.channel.send('Nya. Watashi wa neko desu! :cat: ');
-	  }else if (msg.content.startsWith('neko help')) {
+	}else if (msg.content.startsWith('neko help')) {
 		msg.channel.send("Nya. Watashi wa anata o tasukerudeshou!");
 		msg.channel.send({embed: {
 			color: 3447003,
@@ -237,6 +245,14 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 			  {
 				name: "resume",
 				value: "продлжает воспроизводить поставленную на паузу композицию."
+			  },
+			  {
+				name: "invite",
+				value: "вы можете добавить Неко бота к себе на сервер"
+			  },
+			  {
+				name: "neko",
+				value: "выдаёт рандомную картинку некочек"
 			  }
 			],
 			timestamp: new Date(),
@@ -294,7 +310,15 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 					{
 					name: "resume",
 					value: "continues to play the paused song."
-					}
+					},
+					{
+					name: "invite",
+					value: "ivite neko bot for your server."
+				},
+				{
+				  name: "neko",
+				  value: "post random neko image"
+				}
 				],
 				timestamp: new Date(),
 				footer: {
@@ -351,7 +375,15 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 					{
 					name: "resume",
 					value: "nowo starto play inato pause songo"
-					}
+					},
+					{
+					name: "invite",
+					value: "anata no inuvito Neko Boto"
+				},
+				{
+				  name: "neko",
+				  value: "watashi posto neko imagua"
+				}
 				],
 				timestamp: new Date(),
 				footer: {
@@ -361,7 +393,7 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 				}
 			});
 	  }  else if (msg.content.startsWith('неко анонс')) {
-			const embed = {
+			msg.channel.send({embed: {
 				"description": "------------------------------------------------",
 				"color": 15924992,
 				"timestamp": new Date(),
@@ -378,11 +410,14 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 						"value": "------------------------------------------------"
 					},
 				],
-			};
-			msg.channel.send({embed});
+			}
+			});
+			console.log(`удаляю сообщение автора ${msg.author.username} с содержанием : ${msg}`)
+			client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **delete messenge** - удаляю сообщение автора **${msg.author.username}** с содержанием : **${msg}**`)
 			msg.delete();
-			const AdminRole = msg.guild.roles.find("name", "Anonser");
-			if (!msg.member.roles.has(AdminRole.id))
+			setTimeout(function() {
+			const AnonsRole = msg.guild.roles.find("name", "Anonser");
+			if (!msg.member.roles.has(AnonsRole.id))
 		return msg.channel.send({embed: {
 			"description": "------------------------------------------------",
 			"color": 15337994,
@@ -401,7 +436,7 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 				},
 			],
 	}
-	});		
+	});	
 				msg.channel.send({embed: {
 						"description": "------------------------------------------------",
 						"color": 1693449,
@@ -420,8 +455,15 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 							},
 						],
 				}
-				});
-				msg.guild.channels.find("name", "annonsi").send( '@everyone' + " Рейд " + args[2] + " Будет в " + args[3] + " в " + args[4] + " всем быть!!! " );
+				})
+			}, 1000)
+			setTimeout(function() {
+				let statick = args[2];
+				let reidname = args[3];
+				let daynedel = args[4];
+				let timereid = args[5];
+			 msg.guild.channels.find("name", "annonsi").send( `@everyone статик ${statick}, Рейд ${reidname} Будет в ${daynedel} в ${timereid} всем быть!!!`);
+			}, 1000)
 		}  else if (msg.content.startsWith('neko invite')) {
 
 			msg.channel.send({"embed": {
@@ -450,7 +492,102 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 				}
 			}
 		});
-		}
+		}else if (msg.content.startsWith('neko shutdown')) {
+			msg.channel.send({embed: {
+				"description": "------------------------------------------------",
+				"color": 15924992,
+				"timestamp": new Date(),
+				"footer": {
+					"icon_url": client.user.avatarURL,
+					"text": "© neko"
+				},
+				"thumbnail": {
+					"url": "https://raw.githubusercontent.com/NekoUchiha/neko-bot/master/img/sync.png"
+				},
+				"fields": [
+					{
+						"name": "onegai waitu watashi scanunigu perumisionusu",
+						"value": "------------------------------------------------"
+					},
+				],
+			}
+			});
+		if  (msg.author.id == process.env.owner_id) {
+			setTimeout(function() {
+			msg.channel.send({embed: {
+			"description": "------------------------------------------------",
+			"color": 1693449,
+			"timestamp": new Date(),
+			"footer": {
+				"icon_url": client.user.avatarURL,
+				"text": "© neko"
+			},
+			"thumbnail": {
+				"url": "https://raw.githubusercontent.com/NekoUchiha/neko-bot/master/img/apply.png"
+			},
+			"fields": [
+				{
+					"name": "Kono komando o shiyō suru koto ga dekimasu",
+					"value": "------------------------------------------------"
+				},
+			],
+	}
+	})
+}, 1000)
+	setTimeout(function() {
+		msg.channel.send({embed: {
+		"description": "Shutting down...",
+		"title": "Shutdown has been initiated.",
+		"color": 15337994
+}
+})	
+}, 2000)
+	setTimeout(function() {
+		console.log(`Bot is shutdown`)
+		client.channels.find("id", "408879280206905344").send(`**log**: function **shutdown** - Bot is shutdown
+-------------------------------------------------------------------`)
+		client.destroy()
+	}, 2000)
+	setTimeout(function() {
+		process.exit()
+	}, 3000)
+		} else {
+		setTimeout(function() {
+		msg.channel.send({embed: {
+			"description": "------------------------------------------------",
+			"color": 15337994,
+			"timestamp": new Date(),
+			"footer": {
+				"icon_url": client.user.avatarURL,
+				"text": "© neko"
+			},
+			"thumbnail": {
+				"url": "https://raw.githubusercontent.com/NekoUchiha/neko-bot/master/img/dont.png"
+			},
+			"fields": [
+				{
+					"name": "Gomennasai anata no tokken chīsa sugiru",
+					"value": "------------------------------------------------"
+				},
+			],
+	}
+	})
+}, 1000)
+	}
+} else if (msg.content.startsWith("neko neko")) {
+	let neko = await nekoclient.neko();
+	msg.channel.send({embed: {
+	color: 16713430,
+	author: {
+		name: "Nekos \\o/",
+		icon_url: client.user.avatarURL
+	},
+	image: {
+		url: neko.neko
+	}
+}
+});
+}
 });
 
 async function handleVideo(video, msg, voiceChannel, playlist = false) {
