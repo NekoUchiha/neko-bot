@@ -421,8 +421,7 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 						],
 				}
 				});
-				if (args[4] = undefined) return msg,channel.send('неверный синтаксис');
-				else msg.guild.channels.find("name", "annonsi").send( '@everyone' + " Рейд " + args[2] + " Будет в " + args[3] + " в " + args[4] + " всем быть!!! " );
+				msg.guild.channels.find("name", "annonsi").send( '@everyone' + " Рейд " + args[2] + " Будет в " + args[3] + " в " + args[4] + " всем быть!!! " );
 		}  else if (msg.content.startsWith('neko invite')) {
 
 			msg.channel.send({"embed": {
