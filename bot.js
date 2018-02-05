@@ -586,9 +586,10 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 		url: neko.neko
 	}
 }
-});
+})
 }
-
+});
+	
 async function handleVideo(video, msg, voiceChannel, playlist = false) {
 	const serverQueue = queue.get(msg.guild.id);
 	console.log(video);
