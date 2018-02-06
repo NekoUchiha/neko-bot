@@ -27,7 +27,7 @@ client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **r
 **${client.channels.size}** channels and **${client.users.size}** users cached!
 **log**: function **ready** - Bot Game Set **neko help**
 **log**: function **ready** - Bot Autor = **Neko**
-Bot Version = 0.9.2
+Bot Version = 0.9.3
 -------------------------------------------------------------------`)
 client.user.setGame("neko help")
 console.log(`Logged in as ${client.user.username} [ID ${client.user.id}]!
@@ -35,7 +35,7 @@ On ${client.guilds.size} servers!
 ${client.channels.size} channels and ${client.users.size} users cached!
 Bot Game Set neko help
 Bot Autor = Neko
- Bot Version = 0.9.2 `)});
+ Bot Version = 0.9.3 `)});
 
 
 client.on('disconnect', () => {
@@ -418,7 +418,7 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 			setTimeout(function() {
 			const AnonsRole = msg.guild.roles.find("name", "Anonser");
 			if (!msg.member.roles.has(AnonsRole.id))
-		return msg.channel.send({embed: {
+	return msg.channel.send({embed: {
 			"description": "------------------------------------------------",
 			"color": 15337994,
 			"timestamp": new Date(),
@@ -438,7 +438,7 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 	}
 	});	
 				msg.channel.send({embed: {
-						"description": "------------------------------------------------",
+						"description": "-------------------------------------------------------------",
 						"color": 1693449,
 						"timestamp": new Date(),
 						"footer": {
@@ -450,20 +450,40 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 						},
 						"fields": [
 							{
-								"name": "Заявка принята ожидайте Анонс",
-								"value": "------------------------------------------------"
+								"name": "доступ разрешен ожидайте проверку синтакиса",
+								"value": "-------------------------------------------------------------"
 							},
 						],
 				}
 				})
 			}, 1000)
 			setTimeout(function() {
+				msg.channel.send({embed: {
+					"description": "начинаю проверку синтаксиса",
+					"color": 15924992,
+				}
+				});
+			}, 2000)
 				let statick = args[2];
 				let reidname = args[3];
 				let daynedel = args[4];
 				let timereid = args[5];
-			 msg.guild.channels.find("name", "annonsi").send( `@everyone статик ${statick}, Рейд ${reidname} Будет в ${daynedel} в ${timereid} всем быть!!!`);
-			}, 1000)
+				let timestartreid = args[6];
+				if (args[6] === undefined || timestartreid === undefined ) {setTimeout(function() {
+					msg.channel.send({embed: {
+						"description": "Ошибка синтаксита выведение Аносна не возможно",
+						"color": 15337994,
+				}
+				});	}, 3000)
+			} else {setTimeout(function() { 
+				msg.channel.send({embed: {
+					"description": "синтаксис сообщения верный ожидайте анонс",
+					"color": 1693449,
+			}
+			})}, 3000)
+			setTimeout(function() {
+			 msg.guild.channels.find("name", "annonsi").send( `@everyone ${statick} статик, Рейд ${reidname} Будет в ${daynedel} сбор в ${timereid} начало в ${timestartreid} всем быть!!!`);
+			}, 4000)}
 		}  else if (msg.content.startsWith('neko invite')) {
 
 			msg.channel.send({"embed": {
