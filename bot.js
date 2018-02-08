@@ -27,7 +27,7 @@ client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **r
 **${client.channels.size}** channels and **${client.users.size}** users cached!
 **log**: function **ready** - Bot Game Set **neko help**
 **log**: function **ready** - Bot Autor = **Neko**
-Bot Version = 0.9.3
+Bot Version = 0.9.4
 -------------------------------------------------------------------`)
 client.user.setGame("neko help")
 console.log(`Logged in as ${client.user.username} [ID ${client.user.id}]!
@@ -35,7 +35,7 @@ On ${client.guilds.size} servers!
 ${client.channels.size} channels and ${client.users.size} users cached!
 Bot Game Set neko help
 Bot Autor = Neko
- Bot Version = 0.9.3 `)});
+ Bot Version = 0.9.4 `)});
 
 
 client.on('disconnect', () => {
@@ -47,6 +47,16 @@ client.on('reconnecting', () => {
 	console.log('I am reconnecting now!')
 	client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **reconnecting** - I am reconnecting now!
 -------------------------------------------------------------------`)});
+
+// Create an event listener for new guild members
+client.on('guildMemberAdd', member => {
+	// Send the message to a designated channel on a server:
+	const channel = member.guild.channels.find('name', 'chat');
+	// Do nothing if the channel wasn't found on this server
+	if (!channel) return;
+	// Send the message, mentioning the member
+	channel.send(`Welcomu to serveru, ${member} onegai pleito`);
+  });
 
 client.on('message', async msg => { // eslint-disable-line
 	if (msg.author.bot) return undefined;
