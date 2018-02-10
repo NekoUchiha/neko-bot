@@ -27,7 +27,7 @@ client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **r
 **${client.channels.size}** channels and **${client.users.size}** users cached!
 **log**: function **ready** - Bot Game Set **neko help**
 **log**: function **ready** - Bot Autor = **Neko**
-Bot Version = 0.9.4
+Bot Version = 0.9.5
 -------------------------------------------------------------------`)
 client.user.setGame("neko help")
 console.log(`Logged in as ${client.user.username} [ID ${client.user.id}]!
@@ -35,7 +35,7 @@ On ${client.guilds.size} servers!
 ${client.channels.size} channels and ${client.users.size} users cached!
 Bot Game Set neko help
 Bot Autor = Neko
- Bot Version = 0.9.4 `)});
+ Bot Version = 0.9.5 `)});
 
 
 client.on('disconnect', () => {
