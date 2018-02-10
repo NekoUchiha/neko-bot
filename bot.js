@@ -617,6 +617,50 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 	}
 }
 });
+} else if (msg.content.startsWith("neko msdel")){
+	async function purge() {
+		msg.delete();
+
+		const ModerRole = msg.guild.roles.find("name", "Moder");
+		const AdminRole = msg.guild.roles.find("name", "Admin");
+			if (!msg.member.roles.has(AdminRole.id) || msg.member.roles.has(ModerRole.id) )
+		return msg.channel.send({embed: {
+			"description": "------------------------------------------------",
+			"color": 15337994,
+			"timestamp": new Date(),
+			"footer": {
+				"icon_url": client.user.avatarURL,
+				"text": "© neko"
+			},
+			"thumbnail": {
+				"url": "https://raw.githubusercontent.com/NekoUchiha/neko-bot/master/img/dont.png"
+			},
+			"fields": [
+				{
+					"name": "У вас нет Доступа до этой Команды.",
+					"value": "------------------------------------------------"
+				},
+			],
+	}
+	});	
+
+		if(isNaN(args[2])){
+			msg.channel.send('Plisu numeru onegai \n Use: neko msdel <amount>');
+			return;
+		}
+
+		const fefched = await msg.channel.fetchMessages({limit: args[2]});
+		console.log(fefched.size + ' mesng found, deleting....');
+
+		msg.channel.bulkDelete(fefched)
+		.catch(error => msg.channel.send(`Error: ${error}`));
+		msg.channel.send(":wastebasket:" + " " + " | " + " **" + msg.author.username + "**, " + fefched.size + ' messunge deletu onegai');
+		setTimeout(function() {
+			msg.channel.bulkDelete(1);
+		}, 3000)
+
+	}
+	purge();
 }
 });
 	
