@@ -656,7 +656,8 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 		.catch(error => msg.channel.send(`Error: ${error}`));
 		msg.channel.send(":wastebasket:" + " " + " | " + " **" + msg.author.username + "**, " + fefched.size + ' messunge deletu onegai');
 		setTimeout(function() {
-			msg.channel.bulkDelete(1);
+			msg.channal.send("delete");
+			msg.channel.bulkDelete(2);
 		}, 3000)
 
 	}
