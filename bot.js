@@ -27,7 +27,7 @@ client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **r
 **${client.channels.size}** channels and **${client.users.size}** users cached!
 **log**: function **ready** - Bot Game Set **neko help**
 **log**: function **ready** - Bot Autor = **Neko**
-Bot Version = 0.9.5
+Bot Version = 0.9.6
 -------------------------------------------------------------------`)
 client.user.setGame("neko help")
 console.log(`Logged in as ${client.user.username} [ID ${client.user.id}]!
@@ -35,7 +35,7 @@ On ${client.guilds.size} servers!
 ${client.channels.size} channels and ${client.users.size} users cached!
 Bot Game Set neko help
 Bot Autor = Neko
- Bot Version = 0.9.5 `)});
+ Bot Version = 0.9.6 `)});
 
 
 client.on('disconnect', () => {
@@ -402,7 +402,7 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 				}
 				}
 			});
-	  }  else if (msg.content.startsWith('неко анонс')) {
+	  }  else if (msg.content.startsWith('неко анонс --рейд')) {
 			msg.channel.send({embed: {
 				"description": "------------------------------------------------",
 				"color": 15924992,
@@ -428,7 +428,7 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 			setTimeout(function() {
 			const AnonsRole = msg.guild.roles.find("name", "Anonser");
 			if (!msg.member.roles.has(AnonsRole.id))
-	return msg.channel.send({embed: {
+		return msg.channel.send({embed: {
 			"description": "------------------------------------------------",
 			"color": 15337994,
 			"timestamp": new Date(),
@@ -474,12 +474,12 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 				}
 				});
 			}, 2000)
-				let statick = args[2];
-				let reidname = args[3];
-				let daynedel = args[4];
-				let timereid = args[5];
-				let timestartreid = args[6];
-				if (args[6] === undefined || timestartreid === undefined ) {setTimeout(function() {
+				let statick = args[3];
+				let reidname = args[4];
+				let daynedel = args[5];
+				let timereid = args[6];
+				let timestartreid = args[7];
+				if (args[7] === undefined || timestartreid === undefined ) {setTimeout(function() {
 					msg.channel.send({embed: {
 						"description": "Ошибка синтаксита выведение Аносна не возможно",
 						"color": 15337994,
@@ -493,6 +493,107 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 			})}, 3000)
 			setTimeout(function() {
 			 msg.guild.channels.find("name", "annonsi").send( `@everyone ${statick} статик, Рейд ${reidname} Будет в ${daynedel} сбор в ${timereid} начало в ${timestartreid} всем быть!!!`);
+			}, 4000)}
+		}  else if (msg.content.startsWith('неко анонс --таблица')) {
+			msg.channel.send({embed: {
+				"description": "------------------------------------------------",
+				"color": 15924992,
+				"timestamp": new Date(),
+				"footer": {
+					"icon_url": client.user.avatarURL,
+					"text": "© neko"
+				},
+				"thumbnail": {
+					"url": "https://raw.githubusercontent.com/NekoUchiha/neko-bot/master/img/sync.png"
+				},
+				"fields": [
+					{
+						"name": "начинаю проверку ваших привелегий",
+						"value": "------------------------------------------------"
+					},
+				],
+			}
+			});
+			console.log(`удаляю сообщение автора ${msg.author.username} с содержанием : ${msg}`)
+			client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **delete messenge** - удаляю сообщение автора **${msg.author.username}** с содержанием : **${msg}**`)
+			msg.delete();
+			setTimeout(function() {
+			const AnonsRole = msg.guild.roles.find("name", "Anonser");
+			if (!msg.member.roles.has(AnonsRole.id))
+		return msg.channel.send({embed: {
+			"description": "------------------------------------------------",
+			"color": 15337994,
+			"timestamp": new Date(),
+			"footer": {
+				"icon_url": client.user.avatarURL,
+				"text": "© neko"
+			},
+			"thumbnail": {
+				"url": "https://raw.githubusercontent.com/NekoUchiha/neko-bot/master/img/dont.png"
+			},
+			"fields": [
+				{
+					"name": "У вас нет Доступа до этой Команды.",
+					"value": "------------------------------------------------"
+				},
+			],
+	}
+	});	
+				msg.channel.send({embed: {
+						"description": "-------------------------------------------------------------",
+						"color": 1693449,
+						"timestamp": new Date(),
+						"footer": {
+							"icon_url": client.user.avatarURL,
+							"text": "© neko"
+						},
+						"thumbnail": {
+							"url": "https://raw.githubusercontent.com/NekoUchiha/neko-bot/master/img/apply.png"
+						},
+						"fields": [
+							{
+								"name": "доступ разрешен ожидайте проверку синтакиса",
+								"value": "-------------------------------------------------------------"
+							},
+						],
+				}
+				})
+			}, 1000)
+			setTimeout(function() {
+				msg.channel.send({embed: {
+					"description": "начинаю проверку синтаксиса",
+					"color": 15924992,
+				}
+				});
+			}, 2000)
+				let statick = args[3];
+				let reidname = args[4];
+				if (args[4] === undefined || reidname === undefined ) {setTimeout(function() {
+					msg.channel.send({embed: {
+						"description": "Ошибка синтаксита выведение Аносна не возможно",
+						"color": 15337994,
+				}
+				});	}, 3000)
+			} else {setTimeout(function() { 
+				msg.channel.send({embed: {
+					"description": "синтаксис сообщения верный ожидайте анонс",
+					"color": 1693449,
+			}
+			})}, 3000)
+			setTimeout(function() {
+				if(statick == "1"){
+				msg.guild.channels.find("name", "annonsi").send( `@everyone ${statick} статик, Таблица времени рейда ${reidname} сброшена, просьба заполнить данные на эту неделю до среды!!!!
+https://docs.google.com/spreadsheets/d/11GKsk5NhqY-QBfOdFLuMsfxJ3WPbce_YWcpr7je0EOs/edit#gid=0`);
+				}else if (statick == "2"){
+			 msg.guild.channels.find("name", "annonsi").send( `@everyone ${statick} статик, Таблица времени рейда ${reidname} сброшена, просьба заполнить данные на эту неделю до среды!!!!
+https://docs.google.com/spreadsheets/d/11GKsk5NhqY-QBfOdFLuMsfxJ3WPbce_YWcpr7je0EOs/edit#gid=2085288476`);
+}else if (!reidname == "ворона"){
+	msg.channel.send({embed: {
+		"description": "Ошибка синтаксита выведение Аносна не возможно",
+		"color": 15337994,
+}
+});	
+}
 			}, 4000)}
 		}  else if (msg.content.startsWith('neko invite')) {
 
@@ -574,7 +675,7 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 }, 2000)
 	setTimeout(function() {
 		console.log(`Bot is shutdown`)
-		client.channels.find("id", "408879280206905344").send(`**log**: function **shutdown** - Bot is shutdown
+		client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **shutdown** - Bot is shutdown
 -------------------------------------------------------------------`)
 		client.destroy()
 	}, 2000)
