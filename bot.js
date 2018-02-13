@@ -9,6 +9,8 @@ const youtube = new YouTube(process.env.GOOGLE_API_KEY);
 
 const queue = new Map();
 
+const BotVersion = "0.9.7";
+
 let nekoclient = new neko.Client();
 
 client.on('warn', () => {
@@ -27,7 +29,7 @@ client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **r
 **${client.channels.size}** channels and **${client.users.size}** users cached!
 **log**: function **ready** - Bot Game Set **neko help**
 **log**: function **ready** - Bot Autor = **Neko**
-Bot Version = 0.9.6
+Bot Version = **${BotVersion}**
 -------------------------------------------------------------------`)
 client.user.setGame("neko help")
 console.log(`Logged in as ${client.user.username} [ID ${client.user.id}]!
@@ -35,7 +37,7 @@ On ${client.guilds.size} servers!
 ${client.channels.size} channels and ${client.users.size} users cached!
 Bot Game Set neko help
 Bot Autor = Neko
- Bot Version = 0.9.6 `)});
+Bot Version = ${BotVersion} `)});
 
 
 client.on('disconnect', () => {
@@ -719,31 +721,11 @@ https://docs.google.com/spreadsheets/d/11GKsk5NhqY-QBfOdFLuMsfxJ3WPbce_YWcpr7je0
 }
 });
 } else if (msg.content.startsWith("neko msdel")){
+	msg.delete();
+	const ModerRole = msg.guild.roles.find("name", "Moder");
+	const AdminRole = msg.guild.roles.find("name", "Admin");
+		if (msg.member.roles.has(AdminRole.id) || msg.member.roles.has(ModerRole.id)){
 	async function purge() {
-		msg.delete();
-
-		const ModerRole = msg.guild.roles.find("name", "Moder");
-		const AdminRole = msg.guild.roles.find("name", "Admin");
-			if (!msg.member.roles.has(AdminRole.id) || msg.member.roles.has(ModerRole.id) )
-		return msg.channel.send({embed: {
-			"description": "------------------------------------------------",
-			"color": 15337994,
-			"timestamp": new Date(),
-			"footer": {
-				"icon_url": client.user.avatarURL,
-				"text": "© neko"
-			},
-			"thumbnail": {
-				"url": "https://raw.githubusercontent.com/NekoUchiha/neko-bot/master/img/dont.png"
-			},
-			"fields": [
-				{
-					"name": "У вас нет Доступа до этой Команды.",
-					"value": "------------------------------------------------"
-				},
-			],
-	}
-	});	
 
 		if(isNaN(args[2])){
 			msg.channel.send('Plisu numeru onegai \n Use: neko msdel <amount>');
@@ -760,9 +742,27 @@ https://docs.google.com/spreadsheets/d/11GKsk5NhqY-QBfOdFLuMsfxJ3WPbce_YWcpr7je0
 			msg.channel.send("delete");
 			msg.channel.bulkDelete(2);
 		}, 3000)
-
 	}
 	purge();
+} else {msg.channel.send({embed: {
+	"description": "------------------------------------------------",
+	"color": 15337994,
+	"timestamp": new Date(),
+	"footer": {
+		"icon_url": client.user.avatarURL,
+		"text": "© neko"
+	},
+	"thumbnail": {
+		"url": "https://raw.githubusercontent.com/NekoUchiha/neko-bot/master/img/dont.png"
+	},
+	"fields": [
+		{
+			"name": "У вас нет Доступа до этой Команды.",
+			"value": "------------------------------------------------"
+		},
+	],
+}
+}); return;}
 }
 });
 	
