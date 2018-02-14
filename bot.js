@@ -771,7 +771,6 @@ https://docs.google.com/spreadsheets/d/11GKsk5NhqY-QBfOdFLuMsfxJ3WPbce_YWcpr7je0
 	var msgSay = msg.cleanContent.replace(`neko say ${args[2]}`, "");
 	var sayChannale = client.channels.find("name", args[2])
 	client.channels.find("name", args[2]).send(msgSay);
-	msg.channel.send(args[2]);
 } else {msg.channel.send({embed: {
 	"description": "------------------------------------------------",
 	"color": 15337994,
