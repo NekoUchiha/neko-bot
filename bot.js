@@ -9,7 +9,7 @@ const youtube = new YouTube(process.env.GOOGLE_API_KEY);
 
 const queue = new Map();
 
-const BotVersion = "0.9.8";
+const BotVersion = "0.9.8_1";
 
 let nekoclient = new neko.Client();
 
@@ -770,7 +770,7 @@ https://docs.google.com/spreadsheets/d/11GKsk5NhqY-QBfOdFLuMsfxJ3WPbce_YWcpr7je0
 		if (msg.member.roles.has(AdminRole.id) || msg.member.roles.has(ModerRole.id)){
 	var msgSay = msg.cleanContent.replace(`neko say ${args[2]}`, "");
 	var sayChannale = client.channels.find("name", args[2])
-	msg.member.channels.find("name", args[2]).send(msgSay);
+	msg.guild.channels.find("name", args[2]).send(msgSay);
 } else {msg.channel.send({embed: {
 	"description": "------------------------------------------------",
 	"color": 15337994,
