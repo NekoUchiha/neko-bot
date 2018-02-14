@@ -625,7 +625,7 @@ https://docs.google.com/spreadsheets/d/11GKsk5NhqY-QBfOdFLuMsfxJ3WPbce_YWcpr7je0
 				}
 			}
 		});
-		}else if (msg.content.startsWith('neko shutdown')) {
+		} else if (msg.content.startsWith('neko shutdown')) {
 			msg.channel.send({embed: {
 				"description": "------------------------------------------------",
 				"color": 15924992,
@@ -763,7 +763,7 @@ https://docs.google.com/spreadsheets/d/11GKsk5NhqY-QBfOdFLuMsfxJ3WPbce_YWcpr7je0
 	],
 }
 }); return;}
-}}else if(msg.content.startsWith("neko say")) {
+}else if(msg.content.startsWith("neko say")) {
 	msg.delete();
 	const ModerRole = msg.guild.roles.find("name", "Moder");
 	const AdminRole = msg.guild.roles.find("name", "Admin");
