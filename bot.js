@@ -9,7 +9,7 @@ const youtube = new YouTube(process.env.GOOGLE_API_KEY);
 
 const queue = new Map();
 
-const BotVersion = "0.9.7";
+const BotVersion = "0.9.8";
 
 let nekoclient = new neko.Client();
 
@@ -744,6 +744,34 @@ https://docs.google.com/spreadsheets/d/11GKsk5NhqY-QBfOdFLuMsfxJ3WPbce_YWcpr7je0
 		}, 3000)
 	}
 	purge();
+} else {msg.channel.send({embed: {
+	"description": "------------------------------------------------",
+	"color": 15337994,
+	"timestamp": new Date(),
+	"footer": {
+		"icon_url": client.user.avatarURL,
+		"text": "© neko"
+	},
+	"thumbnail": {
+		"url": "https://raw.githubusercontent.com/NekoUchiha/neko-bot/master/img/dont.png"
+	},
+	"fields": [
+		{
+			"name": "У вас нет Доступа до этой Команды.",
+			"value": "------------------------------------------------"
+		},
+	],
+}
+}); return;}
+}}else if(msg.content.startsWith("neko say")) {
+	msg.delete();
+	const ModerRole = msg.guild.roles.find("name", "Moder");
+	const AdminRole = msg.guild.roles.find("name", "Admin");
+		if (msg.member.roles.has(AdminRole.id) || msg.member.roles.has(ModerRole.id)){
+	var msgSay = msg.cleanContent.replace(`neko say ${args[2]}`, "");
+	var sayChannale = client.channels.find("name", args[2])
+	client.channels.find("name", args[2]).send(msgSay);
+	msg.channel.send(args[2]);
 } else {msg.channel.send({embed: {
 	"description": "------------------------------------------------",
 	"color": 15337994,
