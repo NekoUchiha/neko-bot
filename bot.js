@@ -9,7 +9,7 @@ const youtube = new YouTube(process.env.GOOGLE_API_KEY);
 
 const queue = new Map();
 
-const BotVersion = "0.9.8_1";
+const BotVersion = "0.9.9";
 
 let nekoclient = new neko.Client();
 
@@ -37,7 +37,49 @@ On ${client.guilds.size} servers!
 ${client.channels.size} channels and ${client.users.size} users cached!
 Bot Game Set neko help
 Bot Autor = Neko
-Bot Version = ${BotVersion} `)});
+Bot Version = ${BotVersion} `)
+client.channels.get(process.env.BOT_INFO_LOG_CHANNALE).send({
+	embed: {
+		color: 0xe20808,
+		title: "I restarted",
+		author: {
+			name: client.user.username,
+			icon_url: client.user.avatarURL
+		}
+		,
+		fields: [
+			{
+				name: "Guilds",
+				value: client.guilds.size
+				, inline: true
+			},
+			{
+				name: "Users",
+				value: client.users.filter(g => !g.client).size, inline: true
+			},
+			{
+				name: "Bots",
+				value: client.users.filter(g => g.client).size, inline: true
+			}, {
+				name: "Ping",
+				value: client.ping.toFixed(0) + 'ms', inline: true
+			},
+
+			{
+				name: "Ram used",
+				value: `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB`, inline: true
+			},
+			{
+				name: "Version info",
+				value: "**Node**: " + process.version, inline: true
+
+			}
+		],
+		timestamp: new Date(),
+	}
+
+}).catch(e => console.warn('wew tf happened here ' + e));
+});
 
 
 client.on('disconnect', () => {
@@ -768,9 +810,30 @@ https://docs.google.com/spreadsheets/d/11GKsk5NhqY-QBfOdFLuMsfxJ3WPbce_YWcpr7je0
 	const ModerRole = msg.guild.roles.find("name", "Moder");
 	const AdminRole = msg.guild.roles.find("name", "Admin");
 		if (msg.member.roles.has(AdminRole.id) || msg.member.roles.has(ModerRole.id)){
-	var msgSay = msg.cleanContent.replace(`neko say ${args[2]}`, "");
-	var sayChannale = client.channels.find("name", args[2])
-	msg.guild.channels.find("name", args[2]).send(msgSay);
+			if (args[2] === undefined) return msg.channel.send({embed: {
+				"description": "Ошибка синтаксита",
+				"color": 15337994,
+		}
+		});
+		if (args[3] === undefined) return msg.channel.send({embed: {
+			"description": "Ошибка синтаксита",
+			"color": 15337994,
+	}
+	});
+	var msgSay = msg.cleanContent.replace(`neko say ${args[2]} ${args[3]}`, "");
+	let ForsceSay = args[3];
+	if (ForsceSay === "ev") return msg.guild.channels.find("name", args[2]).send("@everyone" + msgSay);
+	if (ForsceSay === "one") return msg.guild.channels.find("name", args[2]).send(msgSay);
+	if ( ForsceSay === "ev" || ForsceSay === "one") {
+
+	}
+	else {
+		msg.channel.send({embed: {
+			"description": "Ошибка синтаксита",
+			"color": 15337994,
+	}
+	});
+	}
 } else {msg.channel.send({embed: {
 	"description": "------------------------------------------------",
 	"color": 15337994,
