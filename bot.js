@@ -955,7 +955,7 @@ neko say chat one привет`
 			]
 		}})
 	}
-	if(msg.author.id == settings.owner_id || msg.member.roles.has(AdminRole.id) || msg.member.roles.has(ModerRole.id) || msg.member.roles.has(AnonsRole.id)){
+	if(msg.author.id == process.env.owner_id || msg.member.roles.has(AdminRole.id) || msg.member.roles.has(ModerRole.id) || msg.member.roles.has(AnonsRole.id)){
 		msg.channel.send({embed: {
 			color: 16713430,
 			"title": "На данный момент!",
