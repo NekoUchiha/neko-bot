@@ -866,7 +866,7 @@ https://docs.google.com/spreadsheets/d/11GKsk5NhqY-QBfOdFLuMsfxJ3WPbce_YWcpr7je0
 		"title": "Neko Bot h- admin info",
 		"description": "Тут будет выведена помощь для команд доступных только вам"
 	}})
-	if (msg.author.id === settings.owner_id) {
+	if (msg.author.id === process.env.owner_id) {
 		msg.channel.send({embed:{
 			color: 0xe20808,
 			"title": "Neko Bot owner info",
