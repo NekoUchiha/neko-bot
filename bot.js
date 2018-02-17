@@ -857,7 +857,7 @@ https://docs.google.com/spreadsheets/d/11GKsk5NhqY-QBfOdFLuMsfxJ3WPbce_YWcpr7je0
 }); return;}
 } else if (msg.content.startsWith("neko -h admin")) {
 	msg.delete();
-	msg.channel.send({embed: {
+	msg.author.send({embed: {
 		color: 16713430,
 		author: {
 			name: client.user.username,
@@ -867,7 +867,7 @@ https://docs.google.com/spreadsheets/d/11GKsk5NhqY-QBfOdFLuMsfxJ3WPbce_YWcpr7je0
 		"description": "Тут будет выведена помощь для команд доступных только вам"
 	}})
 	if (msg.author.id === process.env.owner_id) {
-		msg.channel.send({embed:{
+		msg.author.send({embed:{
 			color: 0xe20808,
 			"title": "Neko Bot owner info",
 			"description": "Эти команды доступны только для командующего ботом!",
@@ -886,7 +886,7 @@ https://docs.google.com/spreadsheets/d/11GKsk5NhqY-QBfOdFLuMsfxJ3WPbce_YWcpr7je0
 	const AdminRole = msg.guild.roles.find("name", "Admin");
 	const AnonsRole = msg.guild.roles.find("name", "Anonser");
 	if (msg.member.roles.has(AdminRole.id) || msg.member.roles.has(ModerRole.id)) {
-		msg.channel.send({embed:{
+		msg.author.send({embed:{
 			color: 15830804,
 			"title": "Neko Bot Admin and Moder info",
 			"description": "Этих команд есть доступ только у Админов и Модеров",
@@ -917,7 +917,7 @@ neko say chat one привет`
 		}})
 	}
 	if (msg.member.roles.has(AnonsRole.id)) {
-		msg.channel.send({embed:{
+		msg.author.send({embed:{
 			color: 7524363,
 			"title": "Neko Bot Anonser info",
 			"description": "Этих команд есть доступ только для Анонсеров",
@@ -956,7 +956,7 @@ neko say chat one привет`
 		}})
 	}
 	if(msg.author.id == process.env.owner_id || msg.member.roles.has(AdminRole.id) || msg.member.roles.has(ModerRole.id) || msg.member.roles.has(AnonsRole.id)){
-		msg.channel.send({embed: {
+		msg.author.send({embed: {
 			color: 16713430,
 			"title": "На данный момент!",
 			"description": "вам показаны все доступные для вас команды Спасибо",
@@ -967,7 +967,7 @@ neko say chat one привет`
 			},
 		}})
 	} else{
-		msg.channel.send({embed: {
+		msg.author.send({embed: {
 			"description": "-------------------------------------------------------",
 			"color": 15337994,
 			"timestamp": new Date(),
@@ -986,7 +986,7 @@ neko say chat one привет`
 			],
 		}
 		})
-		msg.channel.send({embed: {
+		msg.author.send({embed: {
 			color: 16713430,
 			"title": "На данный момент!",
 			"description": "вам показаны все доступные для вас команды Спасибо",
