@@ -9,7 +9,7 @@ const youtube = new YouTube(process.env.GOOGLE_API_KEY);
 
 const queue = new Map();
 
-const BotVersion = "0.9.9";
+const BotVersion = "0.9.10";
 
 let nekoclient = new neko.Client();
 
@@ -55,14 +55,14 @@ client.channels.get(process.env.BOT_INFO_LOG_CHANNALE).send({
 			},
 			{
 				name: "Users",
-				value: client.users.filter(g => !g.client).size, inline: true
+				value: client.users.filter(g => g.client).size, inline: true
 			},
 			{
 				name: "Bots",
-				value: client.users.filter(g => g.client).size, inline: true
+				value: client.users.filter(g => !g.client).size, inline: true
 			}, {
-				name: "Ping",
-				value: client.ping.toFixed(0) + 'ms', inline: true
+				name: "Bot Version",
+				value: BotVersion, inline: true
 			},
 
 			{
@@ -79,6 +79,7 @@ client.channels.get(process.env.BOT_INFO_LOG_CHANNALE).send({
 	}
 
 }).catch(e => console.warn('wew tf happened here ' + e));
+client.user.setGame("neko help")
 });
 
 
@@ -219,7 +220,8 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 		}
 		return msg.channel.send('There is nothing playing.');
 	} else if (msg.content.startsWith('neko ping')) {
-		msg.channel.send(msg.channel.pingTime);
+		msg.channel.send(`Timu nya! toluku: ${Date.now() - msg.createdTimestamp} ms
+tu pingu: ${Math.round(client.ping)} ms`);
 		msg.channel.send('Nya. Watashi wa neko desu! :cat: ');
 	  }else if (msg.content.startsWith('neko help')) {
 		msg.channel.send("Nya. Watashi wa anata o tasukerudeshou!");
@@ -853,8 +855,151 @@ https://docs.google.com/spreadsheets/d/11GKsk5NhqY-QBfOdFLuMsfxJ3WPbce_YWcpr7je0
 	],
 }
 }); return;}
-}
+} else if (msg.content.startsWith("neko -h admin")) {
+	msg.delete();
+	msg.channel.send({embed: {
+		color: 16713430,
+		author: {
+			name: client.user.username,
+			icon_url: client.user.avatarURL
+		},
+		"title": "Neko Bot h- admin info",
+		"description": "Тут будет выведена помощь для команд доступных только вам"
+	}})
+	if (msg.author.id === settings.owner_id) {
+		msg.channel.send({embed:{
+			color: 0xe20808,
+			"title": "Neko Bot owner info",
+			"description": "Эти команды доступны только для командующего ботом!",
+			"thumbnail": {
+				"url": client.user.avatarURL
+			},
+				"fields": [
+					{
+						"name": "shutdown",
+						"value": "выключает бота доступно только мне"
+					},
+				]
+		}})
+	}
+	const ModerRole = msg.guild.roles.find("name", "Moder");
+	const AdminRole = msg.guild.roles.find("name", "Admin");
+	const AnonsRole = msg.guild.roles.find("name", "Anonser");
+	if (msg.member.roles.has(AdminRole.id) || msg.member.roles.has(ModerRole.id)) {
+		msg.channel.send({embed:{
+			color: 15830804,
+			"title": "Neko Bot Admin and Moder info",
+			"description": "Этих команд есть доступ только у Админов и Модеров",
+			"thumbnail": {
+				"url": client.user.avatarURL
+			},
+				"fields": [
+					{
+						"name": "say",
+						"value": `позволяет сказать что то от имени бота, для этого вам надо написать: 
+**neko say <название канала>! <метод публикации>!! <само сообщение>**
+**!<название канала>** - суда вы можете вносить только 
+название текстовых каналов к которым у бота есть доступ на чтение и письмо
+иначе сообщение не будет выведено
+**!!<метод публикации>** - это форма по которой вы получате публикацию, 
+есть вы введёте: **one** то получите обычную публикацию,
+при вводе: **ev** метод публикации будет для всех или everyone.
+таким образом правельная команда выгледит так:
+neko say chat one привет`
+					},
+					{
+						"name": "msdel",
+						"value": `позволяет удалить сообщения с сверева, для этого вам нужна написать:
+**neko msdel <чисто от 2 до 100>**
+Внимание!!! меньше или большее число создаст ошибку и не удалит сообщения`
+					},
+				]
+		}})
+	}
+	if (msg.member.roles.has(AnonsRole.id)) {
+		msg.channel.send({embed:{
+			color: 7524363,
+			"title": "Neko Bot Anonser info",
+			"description": "Этих команд есть доступ только для Анонсеров",
+			"thumbnail": {
+				"url": client.user.avatarURL
+			},
+			"fields": [
+				{
+					"name": "Внимение!!!",
+					"value": "Эти команды пишутся через **неко** на русском а не Английском, ниже будут описаны полные команды а не только комад часть"
+				},
+				{
+					"name": "неко анонс --рейд",
+					"value": `Эта Команда позволяет вам вывести Анонс в спец чат Annonsi
+Эта ввариация команды выводит Анонс об Рейде и выглядет так:
+**неко анонс --рейд <номер статика>! <Имя Босса Рейда>!! <день недели когда состоится рейд>!!! <Время Сбора>!!!! <Время Начала рейда>!!!!!**
+**!<номер статика>** - на ваше усмотрение но помните всего статиков может быть 4 не обманывайте людей ) тоесть число от 1 - 4 эт номер статика
+**!!<Имя Босса Рейда>** - тут уже чётко пишем либо: Ворона либо: Джулии , желательно с маленькой буквы будет проверка систаксиса!!!!
+**!!!<день недели когда состоится рейд>** - день недели с понедельника по воскресения можно сокрощенно но сложней ) или сегодня и завтра, Внимание идёт проверка синтаксиса!!!
+**!!!!<Время Сбора>** - Время начала сбора на рейд в 24 часовом формате
+**!!!!!<Время Начала рейда>** - Время начала рейда в 24 часовом формате
+и так правильная команда будет выглядеть так:
+неко анонс --рейд 1 ворона воскресение 19:30 20:00`
+				},
+				{
+					"name": "неко анонс --таблица",
+					"value": `Эта Команда позволяет вам вывести Анонс в спец чат Annonsi
+Эта ввариация команды выводит Анонс об Таблице и выглядет так:
+**неко анонс --таблица <номер статика>! <Имя Босса Рейда>!!**
+**!<номер статика>** - на ваше усмотрение но помните всего статиков может быть 4 не обманывайте людей ) тоесть число от 1 - 4 эт номер статика
+**!!<Имя Босса Рейда>** - тут уже чётко пишем либо: Ворон либо: Джулия , желательно с маленькой буквы будет проверка систаксиса!!!!
+и так правильная команда будет выглядеть так:
+неко анонс --таблица 1 ворон`
+				},
+			]
+		}})
+	}
+	if(msg.author.id == settings.owner_id || msg.member.roles.has(AdminRole.id) || msg.member.roles.has(ModerRole.id) || msg.member.roles.has(AnonsRole.id)){
+		msg.channel.send({embed: {
+			color: 16713430,
+			"title": "На данный момент!",
+			"description": "вам показаны все доступные для вас команды Спасибо",
+			"timestamp": new Date(),
+			"footer": {
+				"icon_url": client.user.avatarURL,
+				"text": "© neko"
+			},
+		}})
+	} else{
+		msg.channel.send({embed: {
+			"description": "-------------------------------------------------------",
+			"color": 15337994,
+			"timestamp": new Date(),
+			"footer": {
+				"icon_url": client.user.avatarURL,
+				"text": "© neko"
+			},
+			"thumbnail": {
+				"url": "https://raw.githubusercontent.com/NekoUchiha/neko-bot/master/img/dont.png"
+			},
+			"fields": [
+				{
+					"name": "У вас нет уровня Доступа до Админ команд.",
+					"value": "-------------------------------------------------------"
+				},
+			],
+		}
+		})
+		msg.channel.send({embed: {
+			color: 16713430,
+			"title": "На данный момент!",
+			"description": "вам показаны все доступные для вас команды Спасибо",
+			"timestamp": new Date(),
+			"footer": {
+				"icon_url": client.user.avatarURL,
+				"text": "© neko"
+			},
+		}})
+	}		
+	}
 });
+
 	
 async function handleVideo(video, msg, voiceChannel, playlist = false) {
 	const serverQueue = queue.get(msg.guild.id);
