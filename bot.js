@@ -11,6 +11,8 @@ const queue = new Map();
 
 const BotVersion = "0.9.10";
 
+const randomColor = "#000000".replace(/0/g, function () { return (~~(Math.random() * 16)).toString(16); });
+
 let nekoclient = new neko.Client();
 
 client.on('warn', () => {
@@ -473,8 +475,7 @@ tu pingu: ${Math.round(client.ping)} ms`);
 			msg.delete();
 			setTimeout(function() {
 			const AnonsRole = msg.guild.roles.find("name", "Anonser");
-			if (!msg.member.roles.has(AnonsRole.id))
-		return msg.channel.send({embed: {
+			if (!msg.member.roles.has(AnonsRole.id))return msg.channel.send({embed: {
 			"description": "------------------------------------------------",
 			"color": 15337994,
 			"timestamp": new Date(),
@@ -565,8 +566,7 @@ tu pingu: ${Math.round(client.ping)} ms`);
 			msg.delete();
 			setTimeout(function() {
 			const AnonsRole = msg.guild.roles.find("name", "Anonser");
-			if (!msg.member.roles.has(AnonsRole.id))
-		return msg.channel.send({embed: {
+			if (!msg.member.roles.has(AnonsRole.id))return msg.channel.send({embed: {
 			"description": "------------------------------------------------",
 			"color": 15337994,
 			"timestamp": new Date(),
