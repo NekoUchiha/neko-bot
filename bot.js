@@ -475,7 +475,7 @@ tu pingu: ${Math.round(client.ping)} ms`);
 			msg.delete();
 			setTimeout(function() {
 			const AnonsRole = msg.guild.roles.find("name", "Anonser");
-			if (!msg.member.roles.has(AnonsRole.id))return msg.channel.send({embed: {
+			if (!msg.member.roles.has(AnonsRole.id))return; msg.channel.send({embed: {
 			"description": "------------------------------------------------",
 			"color": 15337994,
 			"timestamp": new Date(),
@@ -566,7 +566,25 @@ tu pingu: ${Math.round(client.ping)} ms`);
 			msg.delete();
 			setTimeout(function() {
 			const AnonsRole = msg.guild.roles.find("name", "Anonser");
-			if (msg.member.roles.has(AnonsRole.id)) {
+			if (!msg.member.roles.has(AnonsRole.id)) return; msg.channel.send({embed: {
+			"description": "------------------------------------------------",
+			"color": 15337994,
+			"timestamp": new Date(),
+			"footer": {
+				"icon_url": client.user.avatarURL,
+				"text": "© neko"
+			},
+			"thumbnail": {
+				"url": "https://raw.githubusercontent.com/NekoUchiha/neko-bot/master/img/dont.png"
+			},
+			"fields": [
+				{
+					"name": "У вас нет Доступа до этой Команды.",
+					"value": "------------------------------------------------"
+				},
+			],
+	}
+	}) 
 				msg.channel.send({embed: {
 						"description": "-------------------------------------------------------------",
 						"color": 1693449,
@@ -621,27 +639,6 @@ https://docs.google.com/spreadsheets/d/11GKsk5NhqY-QBfOdFLuMsfxJ3WPbce_YWcpr7je0
 		"color": 15337994,
 }
 });	
-} else {
-	 msg.channel.send({embed: {
-			"description": "------------------------------------------------",
-			"color": 15337994,
-			"timestamp": new Date(),
-			"footer": {
-				"icon_url": client.user.avatarURL,
-				"text": "© neko"
-			},
-			"thumbnail": {
-				"url": "https://raw.githubusercontent.com/NekoUchiha/neko-bot/master/img/dont.png"
-			},
-			"fields": [
-				{
-					"name": "У вас нет Доступа до этой Команды.",
-					"value": "------------------------------------------------"
-				},
-			],
-	}
-	});
-}
 }
 			}, 4000)}
 		}  else if (msg.content.startsWith('neko invite')) {
