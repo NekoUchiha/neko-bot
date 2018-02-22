@@ -475,7 +475,8 @@ tu pingu: ${Math.round(client.ping)} ms`);
 			msg.delete();
 			setTimeout(function() {
 			const AnonsRole = msg.guild.roles.find("name", "Anonser");
-			if (!msg.member.roles.has(AnonsRole.id))return msg.channel.send({embed: {
+			if (!msg.member.roles.has(AnonsRole.id)) {
+	        msg.channel.send({embed: {
 			"description": "------------------------------------------------",
 			"color": 15337994,
 			"timestamp": new Date(),
@@ -493,7 +494,9 @@ tu pingu: ${Math.round(client.ping)} ms`);
 				},
 			],
 	}
-	});	
+	});  return undefined;	}}, 1000)
+	if (msg.member.roles.has(AnonsRole.id)) {
+		setTimeout(function() {
 				msg.channel.send({embed: {
 						"description": "-------------------------------------------------------------",
 						"color": 1693449,
@@ -541,6 +544,7 @@ tu pingu: ${Math.round(client.ping)} ms`);
 			setTimeout(function() {
 			 msg.guild.channels.find("name", "annonsi").send( `@everyone ${statick} статик, Рейд ${reidname} Будет в ${daynedel} сбор в ${timereid} начало в ${timestartreid} всем быть!!!`);
 			}, 4000)}
+	  }
 		}  else if (msg.content.startsWith('неко анонс --таблица')) {
 			msg.channel.send({embed: {
 				"description": "------------------------------------------------",
@@ -566,7 +570,8 @@ tu pingu: ${Math.round(client.ping)} ms`);
 			msg.delete();
 			setTimeout(function() {
 			const AnonsRole = msg.guild.roles.find("name", "Anonser");
-			if (!msg.member.roles.has(AnonsRole.id)) return msg.channel.send({embed: {
+			if (!msg.member.roles.has(AnonsRole.id)) {
+	        msg.channel.send({embed: {
 			"description": "------------------------------------------------",
 			"color": 15337994,
 			"timestamp": new Date(),
@@ -584,7 +589,8 @@ tu pingu: ${Math.round(client.ping)} ms`);
 				},
 			],
 	}
-	}) 
+	});  return undefined;	}}, 1000)
+	if (msg.member.roles.has(AnonsRole.id)) {
 				msg.channel.send({embed: {
 						"description": "-------------------------------------------------------------",
 						"color": 1693449,
@@ -604,7 +610,6 @@ tu pingu: ${Math.round(client.ping)} ms`);
 						],
 				}
 				})
-			}, 1000)
 			setTimeout(function() {
 				msg.channel.send({embed: {
 					"description": "начинаю проверку синтаксиса",
@@ -641,6 +646,7 @@ https://docs.google.com/spreadsheets/d/11GKsk5NhqY-QBfOdFLuMsfxJ3WPbce_YWcpr7je0
 });	
 }
 			}, 4000)}
+	}
 		}  else if (msg.content.startsWith('neko invite')) {
 
 			msg.channel.send({"embed": {
