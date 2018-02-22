@@ -9,9 +9,9 @@ const youtube = new YouTube(process.env.GOOGLE_API_KEY);
 
 const queue = new Map();
 
-const BotVersion = "0.9.10";
+const BotVersion = "0.9.11";
 
-const randomColor = "#000000".replace(/0/g, function () { return (~~(Math.random() * 16)).toString(16); });
+const BotAutor = "Neko";
 
 let nekoclient = new neko.Client();
 
@@ -30,7 +30,7 @@ client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **r
 **log**: function **ready** - On **${client.guilds.size} servers**!
 **${client.channels.size}** channels and **${client.users.size}** users cached!
 **log**: function **ready** - Bot Game Set **neko help**
-**log**: function **ready** - Bot Autor = **Neko**
+**log**: function **ready** - Bot Autor = **${BotAutor}**
 Bot Version = **${BotVersion}**
 -------------------------------------------------------------------`)
 client.user.setGame("neko help")
@@ -38,7 +38,7 @@ console.log(`Logged in as ${client.user.username} [ID ${client.user.id}]!
 On ${client.guilds.size} servers!
 ${client.channels.size} channels and ${client.users.size} users cached!
 Bot Game Set neko help
-Bot Autor = Neko
+Bot Autor = ${BotAutor}
 Bot Version = ${BotVersion} `)
 client.channels.get(process.env.BOT_INFO_LOG_CHANNALE).send({
 	embed: {
@@ -60,8 +60,8 @@ client.channels.get(process.env.BOT_INFO_LOG_CHANNALE).send({
 				value: client.users.filter(g => g.client).size, inline: true
 			},
 			{
-				name: "Bots",
-				value: client.users.filter(g => !g.client).size, inline: true
+				name: "Bot Autor",
+				value: BotAutor, inline: true
 			}, {
 				name: "Bot Version",
 				value: BotVersion, inline: true
@@ -105,6 +105,17 @@ client.on('guildMemberAdd', member => {
 	channel.send(`Welcomu to serveru, ${member} onegai pleito`);
   });
 
+ client.getRandomColor = () => {
+
+	let letters = '0123456789';
+	let color = '';
+	for (let i = 0; i < 7; i++) {
+		color += letters[Math.floor(Math.random() * 10)];
+	}
+
+	return color;
+};  
+  
 client.on('message', async msg => { // eslint-disable-line
 	if (msg.author.bot) return undefined;
 
@@ -760,7 +771,7 @@ https://docs.google.com/spreadsheets/d/11GKsk5NhqY-QBfOdFLuMsfxJ3WPbce_YWcpr7je0
 } else if (msg.content.startsWith("neko neko")) {
 	let neko = await nekoclient.neko();
 	msg.channel.send({embed: {
-	color: 16713430,
+	color: client.getRandomColor(),
 	author: {
 		name: "Nekos \\o/",
 		icon_url: client.user.avatarURL
