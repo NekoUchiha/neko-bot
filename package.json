@@ -24,11 +24,13 @@
     "simple-youtube-api": "^3.0.1",
     "ytdl-core": "^0.16.2",
      "ejs": "^2.5.6",
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "canvas": "git://github.com/elspoono/node-canvas-heroku.git"
   },
   "devDependencies": {
     "eslint": "^4.0.0",
-    "eslint-config-aqua": "^1.0.0"
+    "eslint-config-aqua": "^1.0.0",
+    "canvas": "~0.8.1"
   },
   "eslintConfig": {
     "extends": "aqua",
