@@ -2,8 +2,7 @@ const { Client, Util } = require('discord.js');
 const YouTube = require('simple-youtube-api');
 const ytdl = require('ytdl-core');
 const neko = require("neko.js");
-const Canvas =  require("canvas");
-const request = require("request").defaults({encoding: null});
+
 
 const client = new Client({ disableEveryone: false });
 
@@ -11,7 +10,7 @@ const youtube = new YouTube(process.env.GOOGLE_API_KEY);
 
 const queue = new Map();
 
-const BotVersion = "0.9.12";
+const BotVersion = "0.9.11";
 
 const BotAutor = "Neko";
 
@@ -1016,39 +1015,6 @@ neko say chat one привет`
 			},
 		}})
 	}		
-} else if (msg.content.startsWith("neko dim")){
-		var Image = Canvas.Image
-		, canvas = new Canvas(700, 1024)
-		, ctx = canvas.getContext("2d");
-	
-		const member = args.member;
-	
-		ctx.font = "60px Impact";
-	
-		const template = new Image;
-		fs.readFile(__dirname + "/img/Neko_to_send.jpg", function(err, image) {
-		  if (err) throw err;
-		  template.src = image;
-		});
-	
-		template.onload = () => {
-		  ctx.drawImage(template, 0, 0, 700, 1024);
-		}
-	
-		var profilePicture = new Image;
-		request.get(msg.author.avatarURL, (error, res, body) => {
-		  profilePicture.src = res.body
-		});
-	
-		profilePicture.onload = () => {
-		  ctx.fillStyle = "#FF1493";
-		  ctx.shadowColor= "black";
-		  ctx.shadowBlur= "10";
-		  ctx.lineWidth= "10";
-		  ctx.fillText(`${msg.author.username} THE BAST`, 30,1000);
-		  ctx.fillText(`User: ${msg.author.username}`, 30, 70);
-		  msg.channel.send("", {files:[{attachment:canvas.toBuffer(), name:"profile.png"}]});
-		}
 }
 });
 
