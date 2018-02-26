@@ -463,6 +463,7 @@ tu pingu: ${Math.round(client.ping)} ms`);
 				}
 			});
 	  }  else if (msg.content.startsWith('неко анонс --рейд')) {
+		   	const AnonsRole = msg.guild.roles.find("name", "Anonser");
 			msg.channel.send({embed: {
 				"description": "------------------------------------------------",
 				"color": 15924992,
@@ -486,7 +487,6 @@ tu pingu: ${Math.round(client.ping)} ms`);
 			client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **delete messenge** - удаляю сообщение автора **${msg.author.username}** с содержанием : **${msg}**`)
 			msg.delete();
 			setTimeout(function() {
-			const AnonsRole = msg.guild.roles.find("name", "Anonser");
 			if (!msg.member.roles.has(AnonsRole.id)) {
 	        msg.channel.send({embed: {
 			"description": "------------------------------------------------",
@@ -558,6 +558,7 @@ tu pingu: ${Math.round(client.ping)} ms`);
 			}, 4000)}
 	  }
 		}  else if (msg.content.startsWith('неко анонс --таблица')) {
+			const AnonsRole = msg.guild.roles.find("name", "Anonser");
 			msg.channel.send({embed: {
 				"description": "------------------------------------------------",
 				"color": 15924992,
@@ -581,7 +582,6 @@ tu pingu: ${Math.round(client.ping)} ms`);
 			client.channels.find("id", process.env.LOG_CHANNALE).send(`**log**: function **delete messenge** - удаляю сообщение автора **${msg.author.username}** с содержанием : **${msg}**`)
 			msg.delete();
 			setTimeout(function() {
-			const AnonsRole = msg.guild.roles.find("name", "Anonser");
 			if (!msg.member.roles.has(AnonsRole.id)) {
 	        msg.channel.send({embed: {
 			"description": "------------------------------------------------",
