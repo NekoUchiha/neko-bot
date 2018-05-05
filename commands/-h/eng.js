@@ -42,6 +42,7 @@ exports.run = (client, message, args, chala, langu) => {
 		{
           name: "hug",
           value: "you hug select user name"
+		},
 		{
           name: "kiss",
           value: "you kiss select user name"
