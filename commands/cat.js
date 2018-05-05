@@ -6,7 +6,7 @@ exports.run = (client, message, args) => {
     if (!error && response.statusCode == 200) {
       var cat = JSON.parse(body);
       message.channel.send({embed: {
-				color: client.getRandomColor(),
+		color: client.getRandomColor(),
                 title: 'Meow :cat:',
                 "image": {
                 "url": cat.file,
