@@ -30,6 +30,21 @@ exports.run = (client, message, args, chala, langu) => {
         {
           name: "neko",
           value: "post random neko image"
+        },
+		{
+          name: "avatar",
+          value: "post avatar from select from u user link and image"
+        },
+		{
+          name: "pat",
+          value: "you pat select user name"
+        },
+		{
+          name: "hug",
+          value: "you hug select user name"
+		{
+          name: "kiss",
+          value: "you kiss select user name"
         }
         ],
         timestamp: new Date(),

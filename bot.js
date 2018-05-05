@@ -6,6 +6,8 @@ const client = new Client({ disableEveryone: false });
 
 const newUsers = [];
 
+require("./functions/functions.js")(client);
+
 fs.readdir("./events/", (err, files) => {
 	console.log(`Logging in Neko
 	  \\    /\\

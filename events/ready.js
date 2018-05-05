@@ -1,7 +1,7 @@
 exports.run = async(client) => {
 const Discord = require('discord.js');
 
-const BotVersion = "0.10.0";
+const BotVersion = "0.10.1";
 
 const BotAutor = "Neko";
 

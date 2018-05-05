@@ -30,6 +30,21 @@ exports.run = (client, message, args, chala, langu) => {
         {
           name: "neko",
           value: "watashi posto neko imagua"
+        },
+		{
+          name: "avatar",
+          value: "watashi posto selecto avataro usero linku ono imago"
+        },
+		{
+          name: "pat",
+          value: "anata patu wa selecto useru nemu"
+        },
+		{
+          name: "hug",
+          value: "anata hugu wa selecto useru nemu"
+		{
+          name: "kiss",
+          value: "anata kissu wa selecto useru nemu"
         }
         ],
         timestamp: new Date(),

@@ -32,7 +32,22 @@ exports.run = (client, message, args, chala, langu) => {
           {
             name: "neko",
             value: "выдаёт рандомную картинку некочек"
-          }
+          },
+          {
+            name: "avatar",
+            value: "постит аватар выбраного вами пользователя как ссылку так и картинку"
+        },
+		{
+          name: "pat",
+          value: "ты гладишь выбраного пользователя"
+        },
+		{
+          name: "hug",
+          value: "ты обнимаешь выбраного пользователя"
+		{
+          name: "kiss",
+          value: "ты целуешь выбраного пользователя"
+        }
         ],
         timestamp: new Date(),
         footer: {
