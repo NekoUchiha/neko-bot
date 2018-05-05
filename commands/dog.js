@@ -6,7 +6,7 @@ randomPuppy()
     message.channel.send({embed: {
 	color: client.getRandomColor(),
 	author: {
-		name: "Dogs \\o/",
+		name: "Dogs :dog:",
 		icon_url: client.user.avatarURL
 	},
 	image: {
