@@ -48,6 +48,22 @@ exports.run = (client, message, args, chala, langu) => {
 		{
           name: "kiss",
           value: "ты целуешь выбраного пользователя"
+        },
+		{
+          name: "serverinfo",
+          value: "выводит в чат информыцию о сервере"
+        },
+		{
+          name: "userinfo",
+          value: "выводит в чат информыцию о пользователе"
+		},
+        {
+            name: "cat",
+            value: "выдаёт рандомную картинку кошечек"
+        },
+        {
+            name: "dog",
+            value: "выдаёт рандомную картинку собачек"
         }
         ],
         timestamp: new Date(),

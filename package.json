@@ -14,6 +14,7 @@
   "author": "iCrawl",
   "license": "MIT",
   "dependencies": {
+    "dateformat": "^3.0.3",
     "discord.js": "^11.2.1",
     "request": "2.81.0",
     "install": "^0.10.2",
@@ -21,6 +22,7 @@
     "node-opus": "^0.2.7",
    "ffmpeg-binaries": "^3.2.2-3",
     "opusscript": "0.0.3",
+    "random-puppy": "^1.1.0",
     "simple-youtube-api": "^3.0.1",
     "ytdl-core": "^0.16.2",
      "ejs": "^2.5.6",

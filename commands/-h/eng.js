@@ -46,6 +46,22 @@ exports.run = (client, message, args, chala, langu) => {
 		{
           name: "kiss",
           value: "you kiss select user name"
+        },
+		{
+          name: "serverinfo",
+          value: "post inoformation on server"
+        },
+		{
+          name: "userinfo",
+          value: "post inoformation on User"
+		},
+        {
+            name: "cat",
+            value: "post random Cat image"
+        },
+        {
+            name: "dog",
+            value: "post random dog image"
         }
         ],
         timestamp: new Date(),
