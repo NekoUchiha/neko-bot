@@ -18,11 +18,7 @@ message.delete();
 
 		message.channel.bulkDelete(fefched)
 		.catch(error => message.channel.send(`Error: ${error}`));
-		message.channel.send(":wastebasket:" + " " + " | " + " **" + message.author.username + "**, " + fefched.size + ' messunge deletu onegai');
-		setTimeout(function() {
-			message.channel.send("delete");
-			message.channel.bulkDelete(2);
-		}, 3000)
+		message.channel.send(":wastebasket:" + " " + " | " + " **" + message.author.username + "**, " + fefched.size + ' messunge deletu onegai').then(msg => msg.delete(3000));
 	}
 	purge();
 } else {message.channel.send({embed: {
