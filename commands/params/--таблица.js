@@ -1,4 +1,33 @@
 exports.run = (client, message, args, chala, params) => {
+		if (message.guild.roles.find("name", "Admin") === null || message.guild.roles.find("name", "Moder") === null || message.guild.roles.find("name", "Anonser") === null )return message.channel.send({embed:{
+			
+                "description": ":x: основные модули бота не установлены воспользуйтесь командой botinstall",
+                "color": 15337994,
+        }
+        });
+	if (message.guild.roles.find("name", "Admin") === null) return message.channel.send({embed:{
+			
+                "description": ":x: не установлен модуль Admin",
+                "color": 15337994,
+        }
+        });
+	if (message.guild.roles.find("name", "Moder") === null) return message.channel.send({embed:{
+			
+                "description": ":x: не установлен модуль Moder",
+                "color": 15337994,
+        }
+        });
+	if (message.guild.roles.find("name", "Anonser") === null) return message.channel.send({embed:{
+			
+                "description": ":x: не установлен модуль Anonser",
+                "color": 15337994,
+        }
+        });
+
+
+
+
+
 message.channel.send({embed: {
     "description": "------------------------------------------------",
     "color": 15924992,

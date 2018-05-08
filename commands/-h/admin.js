@@ -1,7 +1,31 @@
 const Discord = require('discord.js');
 exports.run = (client, message, args, chala, langu) => {
     message.delete();
-
+if (message.guild.roles.find("name", "Admin") === null || message.guild.roles.find("name", "Moder") === null || message.guild.roles.find("name", "Anonser") === null )return message.author.send({embed:{
+			
+                "description": ":x: основные модули бота не установлены воспользуйтесь командой botinstall",
+                "color": 15337994,
+        }
+        });
+	if (message.guild.roles.find("name", "Admin") === null) return message.author.send({embed:{
+			
+                "description": ":x: не установлен модуль Admin",
+                "color": 15337994,
+        }
+        });
+	if (message.guild.roles.find("name", "Moder") === null) return message.author.send({embed:{
+			
+                "description": ":x: не установлен модуль Moder",
+                "color": 15337994,
+        }
+        });
+	if (message.guild.roles.find("name", "Anonser") === null) return message.author.send({embed:{
+			
+                "description": ":x: не установлен модуль Anonser",
+                "color": 15337994,
+        }
+        });	
+	
 	message.author.send({embed: {
 		color: 16713430,
 		author: {

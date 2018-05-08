@@ -1,9 +1,6 @@
+const version = require('../data/version.json');
 exports.run = async(client) => {
 const Discord = require('discord.js');
-
-const BotVersion = "0.10.2";
-
-const BotAutor = "Neko";
 
 client.channels.get(process.env.LOG_CHANNALE).send(`
 ============================================
@@ -19,8 +16,8 @@ client.channels.get(process.env.LOG_CHANNALE).send(`
 **log**: function **ready** - On **${client.guilds.size} servers**!
 **${client.channels.size}** channels and **${client.users.size}** users cached!
 **log**: function **ready** - Bot Game Set **neko help**
-**log**: function **ready** - Bot Autor = **${BotAutor}**
-Bot Version = **${BotVersion}**
+**log**: function **ready** - Bot Autor = **${version.BotAutor}**
+Bot Version = **${version.BotVersion}**
 ============================================`)
 client.channels.get(process.env.BOT_INFO_LOG_CHANNALE).send({
 	embed: {
@@ -43,10 +40,10 @@ client.channels.get(process.env.BOT_INFO_LOG_CHANNALE).send({
 			},
 			{
 				name: "Bot Autor",
-				value: BotAutor, inline: true
+				value: version.BotAutor, inline: true
 			}, {
 				name: "Bot Version",
-				value: BotVersion, inline: true
+				value: version.BotVersion, inline: true
 			},
 
 			{
@@ -85,7 +82,7 @@ console.log(`Logged in as ${client.user.username} [ID ${client.user.id}]!`)
 console.log(`On ${client.guilds.size} servers!`)
 console.log(`${client.channels.size} channels and ${client.users.size} users cached!`)
 console.log('Bot Game Set neko help')
-console.log(`Bot Autor = ${BotAutor}`)
-console.log(`Bot Version = ${BotVersion}`)
+console.log(`Bot Autor = ${version.BotAutor}`)
+console.log(`Bot Version = ${version.BotVersion}`)
 console.log('===================================================');
 }
