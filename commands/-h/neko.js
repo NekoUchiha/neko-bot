@@ -62,6 +62,22 @@ exports.run = (client, message, args, chala, langu) => {
         {
             name: "dog",
             value: "watashi posto inu imagua"
+        },
+		{
+            name: "botinstall",
+            value: "anata wa installu Generalu modulu"
+        },
+		{
+            name: "modulinfo",
+            value: "anata cecku modulesu installu wa serversu"
+        },
+		{
+            name: "say",
+            value: "watashi wa say anata messagu (onegai installu - Generalu modulu)"
+        },
+		{
+            name: "msdel",
+            value: "anata wa deletu messagu 2 - 100 coine (onegai installu - Generalu modulu)"
         }
         ],
         timestamp: new Date(),

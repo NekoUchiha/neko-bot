@@ -1,46 +1,47 @@
 exports.run = (client, message, args) => {
     message.delete();
 	exports.run = (client, message, args) => {
-		if (message.guild.roles.find("name", "Admin") === null || message.guild.roles.find("name", "Moder") === null || message.guild.roles.find("name", "Anonser") === null )return message.channel.send({embed:{
+	if (message.guild.roles.find("name", "Admin") === null || message.guild.roles.find("name", "Moder") === null || message.guild.roles.find("name", "Anonser") === null )return message.channel.send({embed:{
 			
-                "description": ":x: основные модули бота не установлены воспользуйтесь командой botinstall",
+                "description": ":x: Generalu modulu botu notu installu onegai use commando botinstall",
                 "color": 15337994,
         }
         });
 	if (message.guild.roles.find("name", "Admin") === null) return message.channel.send({embed:{
 			
-                "description": ":x: не установлен модуль Admin",
+                "description": ":x: notu installu modulu Admin",
                 "color": 15337994,
         }
         });
 	if (message.guild.roles.find("name", "Moder") === null) return message.channel.send({embed:{
 			
-                "description": ":x: не установлен модуль Moder",
+                "description": ":x: notu installu modulu Moder",
                 "color": 15337994,
         }
         });
 	if (message.guild.roles.find("name", "Anonser") === null) return message.channel.send({embed:{
 			
-                "description": ":x: не установлен модуль Anonser",
+                "description": ":x: notu installu modulu Anonser",
                 "color": 15337994,
         }
-        });				
+        });
+		
 		
 	const ModerRole = message.guild.roles.find("name", "Moder");
 	const AdminRole = message.guild.roles.find("name", "Admin");
 		if (message.member.roles.has(AdminRole.id) || message.member.roles.has(ModerRole.id)){
 			if (args[2] === undefined) return message.channel.send({embed: {
-				"description": ":x: Ошибка синтаксита",
+				"description": ":x: sintaxisi Erroru",
 				"color": 15337994,
 		}
 		});
 		if (args[3] === undefined) return message.channel.send({embed: {
-			"description": ":x: Ошибка синтаксита",
+			"description": ":x: sintaxisi Erroru",
 			"color": 15337994,
 	}
 	});
 	if (args[4] === undefined) return message.channel.send({embed: {
-		"description": ":x: Ошибка синтаксита",
+		"description": ":x: sintaxisi Erroru",
 		"color": 15337994,
 }
 });
@@ -53,7 +54,7 @@ exports.run = (client, message, args) => {
 	}
 	else {
 		message.channel.send({embed: {
-			"description": ":x: Ошибка синтаксита",
+			"description": ":x: sintaxisi Erroru",
 			"color": 15337994,
 	}
 	});
@@ -71,7 +72,7 @@ exports.run = (client, message, args) => {
 	},
 	"fields": [
 		{
-			"name": "У вас нет Доступа до этой Команды.",
+			"name": "Gomennasai anata no tokken chīsa sugiru",
 			"value": "------------------------------------------------"
 		},
 	],

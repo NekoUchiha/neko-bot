@@ -62,6 +62,22 @@ exports.run = (client, message, args, chala, langu) => {
         {
             name: "dog",
             value: "post random dog image"
+        },
+		{
+            name: "botinstall",
+            value: "install General bot module"
+        },
+		{
+            name: "modulinfo",
+            value: "ceck modules install from servers"
+        },
+		{
+            name: "say",
+            value: "bot say your message (neede bot install - General module)"
+        },
+		{
+            name: "msdel",
+            value: "delete message 2 - 100 coine (neede bot install - General module)"
         }
         ],
         timestamp: new Date(),
